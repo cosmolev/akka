@@ -222,3 +222,13 @@ named ``akka-cluster-sharding``. You need to replace this dependency if you use 
 The classes changed package name from ``akka.contrib.pattern`` to ``akka.cluster.sharding``.
 
 The configuration properties changed name to ``akka.cluster.sharding``.
+
+Asynchronous ShardAllocationStrategy
+====================================
+
+The methods of the ``ShardAllocationStrategy`` and ``AbstractShardAllocationStrategy`` in Cluster Sharding
+have changed return type to a ``Future`` to support asynchronous decision. For example you can ask an
+actor external actor of how to allocate shards or rebalance shards.
+
+For the synchronous case you can return the result via ``scala.concurrent.Future.successful`` in Scala or 
+``akka.dispatch.Futures.successful`` in Java.
