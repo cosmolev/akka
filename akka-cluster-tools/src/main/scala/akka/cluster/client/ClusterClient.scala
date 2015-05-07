@@ -196,7 +196,7 @@ class ClusterClient(
 /**
  * Extension that starts [[ClusterReceptionist]] and accompanying [[DistributedPubSubMediator]]
  * with settings defined in config section `akka.cluster.client.receptionist`.
- * The [[DistributedPubSubMediator]] is started by the [[DistributedPubSubExtension]].
+ * The [[DistributedPubSubMediator]] is started by the [[DistributedPubSub]].
  */
 object ClusterReceptionistExtension extends ExtensionId[ClusterReceptionistExtension] with ExtensionIdProvider {
   override def get(system: ActorSystem): ClusterReceptionistExtension = super.get(system)
@@ -224,7 +224,7 @@ class ClusterReceptionistExtension(system: ExtendedActorSystem) extends Extensio
   /**
    * Register the actors that should be reachable for the clients in this [[DistributedPubSubMediator]].
    */
-  private def pubSubMediator: ActorRef = DistributedPubSubExtension(system).mediator
+  private def pubSubMediator: ActorRef = DistributedPubSub(system).mediator
 
   /**
    * Register an actor that should be reachable for the clients.
