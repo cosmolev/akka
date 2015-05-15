@@ -82,10 +82,8 @@ object DistributedPubSubSettings {
   /**
    * INTERNAL API
    */
-  private[akka] def roleOption(role: String): Option[String] = role match {
-    case null | "" ⇒ None
-    case _         ⇒ Some(role)
-  }
+  private[akka] def roleOption(role: String): Option[String] =
+    if (role == "") None else Option(role)
 }
 
 /**

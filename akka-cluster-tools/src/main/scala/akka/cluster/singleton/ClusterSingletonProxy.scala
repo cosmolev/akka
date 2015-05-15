@@ -22,14 +22,14 @@ object ClusterSingletonProxySettings {
 
   /**
    * Create settings from the default configuration
-   * `akka.cluster.singleton.proxy-default`.
+   * `akka.cluster.singleton-proxy`.
    */
   def apply(system: ActorSystem): ClusterSingletonProxySettings =
-    apply(system.settings.config.getConfig("akka.cluster.singleton.proxy-default"))
+    apply(system.settings.config.getConfig("akka.cluster.singleton-proxy"))
 
   /**
    * Create settings from a configuration with the same layout as
-   * the default configuration `akka.cluster.singleton.proxy-default`.
+   * the default configuration `akka.cluster.singleton-proxy`.
    */
   def apply(config: Config): ClusterSingletonProxySettings =
     new ClusterSingletonProxySettings(
@@ -38,23 +38,21 @@ object ClusterSingletonProxySettings {
 
   /**
    * Java API: Create settings from the default configuration
-   * `akka.cluster.singleton.proxy-default`.
+   * `akka.cluster.singleton-proxy`.
    */
   def create(system: ActorSystem): ClusterSingletonProxySettings = apply(system)
 
   /**
    * Java API: Create settings from a configuration with the same layout as
-   * the default configuration `akka.cluster.singleton.proxy-default`.
+   * the default configuration `akka.cluster.singleton-proxy`.
    */
   def create(config: Config): ClusterSingletonProxySettings = apply(config)
 
   /**
    * INTERNAL API
    */
-  private[akka] def roleOption(role: String): Option[String] = role match {
-    case null | "" ⇒ None
-    case _         ⇒ Some(role)
-  }
+  private[akka] def roleOption(role: String): Option[String] =
+    if (role == "") None else Option(role)
 
 }
 

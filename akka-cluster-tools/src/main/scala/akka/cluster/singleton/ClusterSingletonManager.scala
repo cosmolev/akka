@@ -29,14 +29,14 @@ object ClusterSingletonManagerSettings {
 
   /**
    * Create settings from the default configuration
-   * `akka.cluster.singleton.default`.
+   * `akka.cluster.singleton`.
    */
   def apply(system: ActorSystem): ClusterSingletonManagerSettings =
-    apply(system.settings.config.getConfig("akka.cluster.singleton.default"))
+    apply(system.settings.config.getConfig("akka.cluster.singleton"))
 
   /**
    * Create settings from a configuration with the same layout as
-   * the default configuration `akka.cluster.singleton.default`.
+   * the default configuration `akka.cluster.singleton`.
    */
   def apply(config: Config): ClusterSingletonManagerSettings =
     new ClusterSingletonManagerSettings(
@@ -48,23 +48,21 @@ object ClusterSingletonManagerSettings {
 
   /**
    * Java API: Create settings from the default configuration
-   * `akka.cluster.singleton.default`.
+   * `akka.cluster.singleton`.
    */
   def create(system: ActorSystem): ClusterSingletonManagerSettings = apply(system)
 
   /**
    * Java API: Create settings from a configuration with the same layout as
-   * the default configuration `akka.cluster.singleton.default`.
+   * the default configuration `akka.cluster.singleton`.
    */
   def create(config: Config): ClusterSingletonManagerSettings = apply(config)
 
   /**
    * INTERNAL API
    */
-  private[akka] def roleOption(role: String): Option[String] = role match {
-    case null | "" ⇒ None
-    case _         ⇒ Some(role)
-  }
+  private[akka] def roleOption(role: String): Option[String] =
+    if (role == "") None else Option(role)
 
 }
 
